@@ -1,0 +1,94 @@
+# Import necessary libraries
+import json
+import random
+
+# Simulate offline content storage (e.g., downloaded educational modules)
+offline_content = {
+    "math": {
+        "basic_arithmetic": "Learn addition, subtraction, multiplication, and division.",
+        "algebra": "Introduction to variables and equations.",
+        "geometry": "Learn about shapes, angles, and theorems."
+    },
+    "science": {
+        "physics": "Basics of motion, force, and energy.",
+        "chemistry": "Introduction to elements and compounds.",
+        "biology": "Learn about cells, tissues, and organs."
+    },
+    "language": {
+        "english": "Learn grammar, vocabulary, and sentence structure.",
+        "hindi": "व्याकरण, शब्दावली और वाक्य संरचना सीखें।",
+        "tamil": "இலக்கணம், சொல்லகராதி மற்றும் வாக்கிய அமைப்பு கற்றுக்கொள்ளுங்கள்."
+    }
+}
+
+# Simulate student progress (stored locally)
+student_progress = {
+    "math": {"basic_arithmetic": 80, "algebra": 50, "geometry": 30},
+    "science": {"physics": 60, "chemistry": 40, "biology": 70},
+    "language": {"english": 90, "hindi": 20, "tamil": 10}
+}
+
+# AI-Powered Recommendation System
+def recommend_module(student_progress):
+    recommendations = {}
+    for subject, topics in student_progress.items():
+        # Recommend the topic with the lowest progress
+        recommended_topic = min(topics, key=topics.get)
+        recommendations[subject] = recommended_topic
+    return recommendations
+
+# Gamified Learning: Points System
+def calculate_points(student_progress):
+    total_points = 0
+    for subject, topics in student_progress.items():
+        total_points += sum(topics.values())
+    return total_points
+
+# Offline Content Access
+def access_offline_content(subject, topic):
+    if subject in offline_content and topic in offline_content[subject]:
+        return offline_content[subject][topic]
+    else:
+        return "Content not found."
+
+# Multilingual Support
+def translate_content(content, language):
+    translations = {
+        "english": content,
+        "hindi": f"हिंदी अनुवाद: {content}",
+        "tamil": f"தமிழ் மொழிபெயர்ப்பு: {content}"
+    }
+    return translations.get(language, "Language not supported.")
+
+# Main Program
+def main():
+    print("Welcome to the AI-Powered Learning Platform!")
+    print("-------------------------------------------")
+
+    # Step 1: Recommend a module based on student progress
+    recommendations = recommend_module(student_progress)
+    print("\nRecommended Modules for You:")
+    for subject, topic in recommendations.items():
+        print(f"{subject.capitalize()}: {topic}")
+
+    # Step 2: Access offline content for a recommended topic
+    subject = input("\nEnter a subject (math, science, language): ").lower()
+    topic = input(f"Enter a topic in {subject}: ").lower()
+    content = access_offline_content(subject, topic)
+    print(f"\nContent for {topic} in {subject}:")
+    print(content)
+
+    # Step 3: Translate content into a preferred language
+    language = input("\nChoose a language (english, hindi, tamil): ").lower()
+    translated_content = translate_content(content, language)
+    print("\nTranslated Content:")
+    print(translated_content)
+
+    # Step 4: Display gamified points
+    points = calculate_points(student_progress)
+    print(f"\nYour Total Learning Points: {points}")
+    print("Keep learning to earn more points!")
+
+# Run the program
+if __name__ == "__main__":
+    main()
